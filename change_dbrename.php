@@ -1,7 +1,35 @@
 <?php
+/* This Class is Made the base Prefix from your JOOMLA Database 
+// actually it does not change the joomla Entry on this atm
+*/
 
-$old_prefix = "gastrosu";
+require_once("configuration.php");
+
+$my_class = new JConfig();
+
+$class_vars = get_class_vars(get_class($my_class));
+
+$cvar = [];
+
+foreach ($class_vars as $name => $value) {
+    $cvar[] = $value;
+}
+
+
+/* EVERY EMPTY STRING NEEDS TO BE FILLED */
+define ("DB_TYPE","mysql");
+define ("DB_HOST",$cvar[13]);
+define ("DB_NAME",$cvar[16]);
+
+
+define ("DB_USERNAME",$cvar[14]);
+define ("DB_PASSWORD",$cvar[15]);
+
+$old_prefix = "x_gastrosu";
 $new_prefix = "j_gastrosu";
+
+
+define ("DB_CHARSET","utf8");
 
 $sql = [
 	"ALTER TABLE 		".$old_prefix."_action_logs			 RENAME TO 				".$new_prefix."_action_logs					",
@@ -77,6 +105,42 @@ $sql = [
 
 foreach ($sql as $s){
 	echo "".$s."; <br>";
+}
+
+function sendSQL($sql){
+	getDB()->query($sql);
+	printDBErrorMessage($sql);
+
+}
+
+
+function getDB(){
+    /** setzen der Statischen Variable $db **/
+    static $db;
+    
+    /** Verhindern, dass $db jedes mal neu geschrieben wird **/
+    if ($db instanceof PDO){
+        return $db;
+    }
+    
+    
+    /** Zusammensetzen des dsn **/
+    $dsn = sprintf("%s:host=%s;dbname=%s;charset=%s",DB_TYPE,DB_HOST,DB_NAME,DB_CHARSET);
+    
+    /** Instanzieren von PDO in $db **/
+    $db = new PDO($dsn,DB_USERNAME,DB_PASSWORD);
+    return $db;
+}
+
+function printDBErrorMessage($sql){
+    $info = getDB()->errorInfo();
+    if (isset($info[2])){
+        echo "Errorcode:    ".$info[2]."<br>";
+    }
+	else{
+		echo "SQL QUERY Successfully Executed:         ".$sql."<br>";
+	}
+
 }
 
 ?>
