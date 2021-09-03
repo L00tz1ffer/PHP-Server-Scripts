@@ -16,20 +16,33 @@ foreach ($class_vars as $name => $value) {
 }
 
 
-/* EVERY EMPTY STRING NEEDS TO BE FILLED */
-define ("DB_TYPE","mysql");
-define ("DB_HOST",$cvar[13]);
-define ("DB_NAME",$cvar[16]);
+/* PLEASE CHECK DATA */
+define ("DB_TYPE","mysql"); // i assume u use a mysql Database
+define ("DB_CHARSET","utf8"); // with utf8 encoding
 
 
-define ("DB_USERNAME",$cvar[14]);
-define ("DB_PASSWORD",$cvar[15]);
-
-$old_prefix = "x_gastrosu";
-$new_prefix = "j_gastrosu";
+$old_prefix = "x_gastrosu";	//check this value
+$new_prefix = "j_gastrosu";	//and this value
 
 
-define ("DB_CHARSET","utf8");
+
+
+define ("DB_HOST",$cvar[13]); 	// Value will be added from Joomla configuration.php
+define ("DB_NAME",$cvar[16]); 	// Value will be added from Joomla configuration.php
+
+
+define ("DB_USERNAME",$cvar[14]); 	// Value will be added from Joomla configuration.php
+define ("DB_PASSWORD",$cvar[15]); 	// Value will be added from Joomla configuration.php
+
+
+
+// This Datastructure is a default set of Tables from a Joomla Installation
+
+// Strictly depending on Version
+
+// Optimized for Version 4
+
+// Do not touch if you do not know what your doing, this could damage your Joomla! Installation
 
 $sql = [
 	"ALTER TABLE 		".$old_prefix."_action_logs			 RENAME TO 				".$new_prefix."_action_logs					",
