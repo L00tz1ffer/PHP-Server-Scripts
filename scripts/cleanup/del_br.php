@@ -3,13 +3,13 @@
 /*
 REPLACE $username with your username on the Server to avoid Dataloss
 */
-$username = "USER";
+$username = "";
 
 
 /*
-ADD $model Values for EXCLUSION 
+ADD $nodel Values for EXCLUSION 
 */
-$model = [
+$nodel = [
 			__DIR__.'/delete.php', 
 			__DIR__.'/unpack.php', 
 			__DIR__.'/joomla.zip'];
@@ -23,18 +23,18 @@ $pathext = "";
 
 
 /*Script logic for recrusive deletion */
-recurse(__DIR__, $username, $model, $pathext);
+recurse(__DIR__, $username, $nodel, $pathext);
 
 
 
-function recurse($dir, $username, $model, $pathext){
+function recurse($dir, $username, $nodel, $pathext){
 	
 	echo "<br>"."Starte im Verzeichnis: ".$dir."<br>";
-	rmfiles($dir."".$pathext, $username, $model);
+	rmfiles($dir."".$pathext, $username, $nodel);
  
 }
 
-function rmfiles ($dir, $root, $model){
+function rmfiles ($dir, $root, $nodel){
 	// PHP program to delete all
 	// file from a folder
 	    
@@ -52,14 +52,14 @@ function rmfiles ($dir, $root, $model){
 
 			 
 			if(is_dir($file)){ 
-				rmfiles($file, $root, $model); 
+				rmfiles($file, $root, $nodel); 
 			}
 		   
 			if(is_file($file)){
 					$isselected = 0;
-					foreach ($model as $modeli){
+					foreach ($nodel as $nodeli){
 						
-						if($file === $modeli){
+						if($file === $nodeli){
 							$isselected = $isselected + 1;
 						}
 					}  
@@ -71,8 +71,8 @@ function rmfiles ($dir, $root, $model){
 					else {
 						echo "".$file." seems to be selected for exclusion ! - - - Isselected has a Value of ".$isselected."<br>";
 						echo "for comparisson: <br>";
-						foreach ($model as $modeli){
-							echo $dir.$modeli."<br>";
+						foreach ($nodel as $nodeli){
+							echo $dir.$nodeli."<br>";
 						} 
 
 					}
