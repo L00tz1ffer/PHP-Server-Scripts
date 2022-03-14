@@ -3,16 +3,10 @@
 /*
 REPLACE $username with your username on the Server to avoid Dataloss
 */
-$username = "";
+$username = ".";
 
 
-/*
-ADD $nodel Values for EXCLUSION 
-*/
-$nodel = [
-			__DIR__.'/delete.php', 
-			__DIR__.'/unpack.php', 
-			__DIR__.'/joomla.zip'];
+
 			
 			
 /* 
@@ -89,5 +83,3 @@ function rmfiles ($dir, $root, $nodel){
 }
 
 ?>
-
-
